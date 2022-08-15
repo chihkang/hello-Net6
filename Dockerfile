@@ -11,7 +11,13 @@ RUN dotnet publish -c Release -o out
 
 # Build runtime image
 FROM mcr.microsoft.com/dotnet/aspnet:6.0
+# EXPOSE 5001
 WORKDIR /app
-COPY --from=build-env /app/out .
+EXPOSE 5000
+EXPOSE 50001
+ENV ASPNETCORE_URLS=http://*:5000
+ENV ASPNETCORE_HTTPS_PORT=https://+:5001
+ENV ASPNETCORE_ENVIRONMENT=Development
 ENV DOTNET_EnableDiagnostics=0
-ENTRYPOINT ["dotnet", "DotNet.Docker.dll"]
+COPY --from=build-env /app/out .
+ENTRYPOINT ["dotnet", "webapi.dll"]

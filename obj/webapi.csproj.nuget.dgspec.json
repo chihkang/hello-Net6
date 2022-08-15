@@ -1,18 +1,21 @@
 {
   "format": 1,
   "restore": {
-    "/Users/chihkang/Documents/temp/Net6/webapi/webapi.csproj": {}
+    "/Users/chihkang/Documents/Net6/hello-Net6/webapi.csproj": {}
   },
   "projects": {
-    "/Users/chihkang/Documents/temp/Net6/webapi/webapi.csproj": {
+    "/Users/chihkang/Documents/Net6/hello-Net6/webapi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/chihkang/Documents/temp/Net6/webapi/webapi.csproj",
+        "projectUniqueName": "/Users/chihkang/Documents/Net6/hello-Net6/webapi.csproj",
         "projectName": "webapi",
-        "projectPath": "/Users/chihkang/Documents/temp/Net6/webapi/webapi.csproj",
+        "projectPath": "/Users/chihkang/Documents/Net6/hello-Net6/webapi.csproj",
         "packagesPath": "/Users/chihkang/.nuget/packages/",
-        "outputPath": "/Users/chihkang/Documents/temp/Net6/webapi/obj/",
+        "outputPath": "/Users/chihkang/Documents/Net6/hello-Net6/obj/",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
+        ],
         "configFilePaths": [
           "/Users/chihkang/.nuget/NuGet/NuGet.Config"
         ],
