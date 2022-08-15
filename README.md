@@ -1,3 +1,4 @@
+[![.NET](https://github.com/chihkang/hello-Net6/actions/workflows/dotnet.yml/badge.svg?branch=main)](https://github.com/chihkang/hello-Net6/actions/workflows/dotnet.yml)
 # hello-Net6
 
 Endpoint
