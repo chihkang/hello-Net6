@@ -9,17 +9,24 @@ namespace webapi.Controllers
     [Route("/api/[controller]")]
     public class CountryController: ControllerBase
     {
-        private readonly IRestCountryApi _IRestCountryApi;
+        private readonly IRestCountryApi _restCountriesClient;
         public CountryController(IRestCountryApi restCountryApi)
         {
-            _IRestCountryApi = restCountryApi;
+            _restCountriesClient = restCountryApi;
         }
 
         // /api/country/all
         [HttpGet("all")]        
         public async Task<IEnumerable<Country>> getAll()
         {
-            return (IEnumerable<Country>)await _IRestCountryApi.GetAll();
+            return (IEnumerable<Country>)await _restCountriesClient.GetAll();
+        }
+
+        // /api/country/{countryName}
+        [HttpGet("{countryName}")]
+        public async Task<IEnumerable<Country>> getByName(string countryName)
+        {
+            return await _restCountriesClient.GetByCountryName(countryName);
         }
     }
 }
