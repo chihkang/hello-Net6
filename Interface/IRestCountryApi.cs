@@ -16,6 +16,10 @@ namespace webapi.Interface
         // https://restcountries.com/v3.1/name/{name}
         [Get("/name/{name}")]
         Task<IEnumerable<Country>> GetByCountryName([AliasAs("name")] string countryName);
+
+        // https://restcountries.com/v3.1/currency/{currency}
+        [Get("/currency/{name}")]
+        Task<IEnumerable<Country>> GetByCurrencyName([AliasAs("name")] string currencyName);
     }
 }
 

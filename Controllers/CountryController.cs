@@ -28,6 +28,13 @@ namespace webapi.Controllers
         {
             return await _restCountriesClient.GetByCountryName(countryName);
         }
+
+        // /api/country/currency/{currencyName}
+        [HttpGet("currency/{currencyName}")]
+        public async Task<IEnumerable<Country>> getByCurrencyName(string currencyName)
+        {
+            return await _restCountriesClient.GetByCurrencyName(currencyName);
+        }
     }
 }
 
