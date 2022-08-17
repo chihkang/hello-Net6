@@ -3,15 +3,18 @@ using Microsoft.AspNetCore.Mvc;
 using Refit;
 using webapi.Dto;
 using webapi.Interface;
+using AuthorizeAttribute = Microsoft.AspNetCore.Authorization.AuthorizeAttribute;
+
 
 namespace webapi.Controllers
 {
     [ApiController]
-    [Route("/api/[controller]")]
+    [Route("/api/[controller]")]    
     public class CountryController: ControllerBase
     {
         private readonly IRestCountryApi _restCountriesClient;
         private readonly ILogger _logger;
+        
 
         public CountryController(IRestCountryApi restCountryApi, ILogger<CountryController> logger)
         {
@@ -19,8 +22,9 @@ namespace webapi.Controllers
             _logger = logger;
         }
 
-        // /api/country/all
-        [HttpGet("all")]        
+        // /api/country/all        
+        [HttpGet("all")]
+        [Authorize(policy: "ApiScope")]
         public async Task<IActionResult> getAllAsync()
         {
             IEnumerable<Country> response = new List<Country>();
@@ -35,6 +39,7 @@ namespace webapi.Controllers
                 _logger.LogError(ex.StatusCode.ToString());
                 _logger.LogError(ex.ToString());
                 _logger.LogError("===============================================");
+                return NotFound(response);
             }
                 
             return Ok(response);
@@ -42,7 +47,7 @@ namespace webapi.Controllers
 
         // /api/country/{countryName}
         [HttpGet("{countryName}")]
-        public async Task<IEnumerable<Country>> getByName(string countryName)
+        public async Task<IActionResult> getByName(string countryName)
         {
             _logger.LogInformation($"countryName is {countryName}");
 
@@ -59,20 +64,21 @@ namespace webapi.Controllers
                 _logger.LogError(ex.StatusCode.ToString());
                 _logger.LogError(ex.ToString());
                 _logger.LogError("===============================================");
+                return NotFound(response);
             }
-            return response;
+            return Ok(response);
         }
 
         // /api/country/currency/{currencyName}
         [HttpGet("currency/{currencyName}")]
-        public async Task<IEnumerable<Country>> getByCurrencyName(string currencyName)
+        public async Task<IActionResult> getByCurrencyName(string currencyName)
         {
             _logger.LogInformation($"currencyName is {currencyName}");
             //_logger.LogInformation("currencyName is {0}", currencyName);
             IEnumerable<Country> response = new List<Country>();
             try
             {
-                response = await _restCountriesClient.GetByCurrencyName(currencyName);
+                response = await _restCountriesClient.GetByCurrencyName(currencyName);                
             }
             catch (ApiException ex)
             {
@@ -81,10 +87,12 @@ namespace webapi.Controllers
                 _logger.LogError(ex.StatusCode.ToString());
                 _logger.LogError(ex.ToString());
                 _logger.LogError("===============================================");
+                return NotFound(response);
             }                        
 
-            return response;
-        }
+            return Ok(response);
+        }               
+      
     }
 }
 

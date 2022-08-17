@@ -10,6 +10,9 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
     <PackageReference Include="Refit.HttpClientFactory" Version="6.3.2" />
     <PackageReference Include="Refit" Version="6.3.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.8" />
+    <PackageReference Include="IdentityModel" Version="6.0.0" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.22.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -17,9 +20,14 @@
     <None Remove="Dto\" />
     <None Remove="Interface\" />
     <None Remove="Refit.HttpClientFactory" />
+    <None Remove="Microsoft.AspNetCore.Authentication.JwtBearer" />
+    <None Remove="IdentityModel" />
+    <None Remove="System.IdentityModel.Tokens.Jwt" />
+    <None Remove="Shared\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Dto\" />
     <Folder Include="Interface\" />
+    <Folder Include="Shared\" />
   </ItemGroup>
 </Project>
