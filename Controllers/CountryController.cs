@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
+using Refit;
 using webapi.Dto;
 using webapi.Interface;
 
@@ -10,30 +11,79 @@ namespace webapi.Controllers
     public class CountryController: ControllerBase
     {
         private readonly IRestCountryApi _restCountriesClient;
-        public CountryController(IRestCountryApi restCountryApi)
+        private readonly ILogger _logger;
+
+        public CountryController(IRestCountryApi restCountryApi, ILogger<CountryController> logger)
         {
             _restCountriesClient = restCountryApi;
+            _logger = logger;
         }
 
         // /api/country/all
         [HttpGet("all")]        
-        public async Task<IEnumerable<Country>> getAll()
+        public async Task<IActionResult> getAllAsync()
         {
-            return (IEnumerable<Country>)await _restCountriesClient.GetAll();
+            IEnumerable<Country> response = new List<Country>();
+            try
+            {
+                response = await _restCountriesClient.GetAll();
+            }
+            catch (ApiException ex)
+            {
+                _logger.LogError("===============================================");
+                _logger.LogError(ex.RequestMessage.ToString());
+                _logger.LogError(ex.StatusCode.ToString());
+                _logger.LogError(ex.ToString());
+                _logger.LogError("===============================================");
+            }
+                
+            return Ok(response);
         }
 
         // /api/country/{countryName}
         [HttpGet("{countryName}")]
         public async Task<IEnumerable<Country>> getByName(string countryName)
         {
-            return await _restCountriesClient.GetByCountryName(countryName);
+            _logger.LogInformation($"countryName is {countryName}");
+
+            IEnumerable<Country> response = new List<Country>();
+
+            try
+            {
+                response = await _restCountriesClient.GetByCountryName(countryName);
+            }
+            catch (ApiException ex)
+            {
+                _logger.LogError("===============================================");
+                _logger.LogError(ex.RequestMessage.ToString());
+                _logger.LogError(ex.StatusCode.ToString());
+                _logger.LogError(ex.ToString());
+                _logger.LogError("===============================================");
+            }
+            return response;
         }
 
         // /api/country/currency/{currencyName}
         [HttpGet("currency/{currencyName}")]
         public async Task<IEnumerable<Country>> getByCurrencyName(string currencyName)
         {
-            return await _restCountriesClient.GetByCurrencyName(currencyName);
+            _logger.LogInformation($"currencyName is {currencyName}");
+            //_logger.LogInformation("currencyName is {0}", currencyName);
+            IEnumerable<Country> response = new List<Country>();
+            try
+            {
+                response = await _restCountriesClient.GetByCurrencyName(currencyName);
+            }
+            catch (ApiException ex)
+            {
+                _logger.LogError("===============================================");
+                _logger.LogError(ex.RequestMessage.ToString());
+                _logger.LogError(ex.StatusCode.ToString());
+                _logger.LogError(ex.ToString());
+                _logger.LogError("===============================================");
+            }                        
+
+            return response;
         }
     }
 }
