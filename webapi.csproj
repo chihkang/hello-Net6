@@ -7,7 +7,19 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+    <PackageReference Include="Refit.HttpClientFactory" Version="6.3.2" />
+    <PackageReference Include="Refit" Version="6.3.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="Refit" />
+    <None Remove="Dto\" />
+    <None Remove="Interface\" />
+    <None Remove="Refit.HttpClientFactory" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Dto\" />
+    <Folder Include="Interface\" />
+  </ItemGroup>
 </Project>
